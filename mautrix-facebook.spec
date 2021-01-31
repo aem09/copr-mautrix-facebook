@@ -1,17 +1,20 @@
 %global srcname mautrix-facebook
 
-%global srcversion master
-
 %{?python_enable_dependency_generator}
+
+%global forgeurl https://github.com/tulir/%{srcname}
+%global commit 19e9e2093572f9de09ce717772f23030d273e164
+
+%forgemeta
 
 Name:       %{srcname}
 Version:    0.2.0
 Release:    1%{?dist}
 Summary:    Matrix to facebook messenger bridge written in python.
 License:    ASL 2.0
-URL:        https://github.com/tulir/%{srcname}
-Source0:    %{url}/archive/%{srcversion}/%{srcname}-%{srcversion}.tar.gz
-Source1:    mautrix-facebook.service
+URL:        %{forgeurl}
+Source0:    %{forgesource}
+Source1:    https://raw.githubusercontent.com/aem09/copr-mautrix-facebook/master/mautrix-facebook.service
 BuildArch:  noarch
 
 BuildRequires:  python3-devel
@@ -24,10 +27,14 @@ Requires:       systemd
 Requires:       libolm-python3
 Requires:       python3-unpaddedbase64
 %py_provides    mautrix-facebook+e2be
-%{?systemd_requires}
-
 Requires: python3-crypto
 %global __requires_exclude ^.*pycryptodome.*$
+
+# Python3.9 is required to make images work properly.
+# https://github.com/tulir/mautrix-facebook/issues/127
+Requires: python(abi)>3.9
+
+%{?systemd_requires}
 
 %description
 Facebook to Matrix Bridge
@@ -35,7 +42,7 @@ Facebook to Matrix Bridge
 %{?python_extras_subpkg:%python_extras_subpkg -n %{name} -i %{python3_sitelib}/*.egg-info metrics}
 
 %prep
-%autosetup -p1 -n %{srcname}-%{srcversion}
+%forgesetup
 
 %build
 %py3_build
