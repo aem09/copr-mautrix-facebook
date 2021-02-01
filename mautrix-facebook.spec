@@ -32,10 +32,6 @@ Requires:       python3-unpaddedbase64
 Requires:       python3-crypto
 %global __requires_exclude ^.*pycryptodome.*$
 
-# Python3.9 is required to make images work properly.
-# https://github.com/tulir/mautrix-facebook/issues/127
-Requires: python(abi)>3.9
-
 %{?systemd_requires}
 
 %description
