@@ -1,0 +1,8 @@
+--- example-config.yaml	2021-01-31 10:33:12.000000000 +0000
++++ example-config.yaml.new	2021-02-01 11:42:01.443609200 +0000
+@@ -243,4 +243,4 @@
+             level: INFO
+     root:
+         level: DEBUG
+-        handlers: [file, console]
++        handlers: [console]

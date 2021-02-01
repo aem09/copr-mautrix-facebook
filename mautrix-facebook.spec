@@ -17,6 +17,8 @@ Source0:    %{forgesource}
 Source1:    https://raw.githubusercontent.com/aem09/copr-mautrix-facebook/master/mautrix-facebook.service
 BuildArch:  noarch
 
+Patch0:     log.patch
+
 BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  systemd-rpm-macros
@@ -27,7 +29,7 @@ Requires:       systemd
 Requires:       libolm-python3
 Requires:       python3-unpaddedbase64
 %py_provides    mautrix-facebook+e2be
-Requires: python3-crypto
+Requires:       python3-crypto
 %global __requires_exclude ^.*pycryptodome.*$
 
 # Python3.9 is required to make images work properly.
@@ -43,6 +45,7 @@ Facebook to Matrix Bridge
 
 %prep
 %forgesetup
+%autopatch -p0
 
 %build
 %py3_build
