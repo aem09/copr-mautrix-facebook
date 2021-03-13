@@ -26,11 +26,10 @@ BuildRequires:  systemd-rpm-macros
 Requires:       systemd
 
 #Manually include the end-to-end dependencies.
+#This is because python-olm is called libolm-python3 in fedora.
 Requires:       libolm-python3
 Requires:       python3-unpaddedbase64
 %py_provides    mautrix-facebook+e2be
-Requires:       python3-crypto
-%global __requires_exclude ^.*pycryptodome.*$
 
 %{?systemd_requires}
 
